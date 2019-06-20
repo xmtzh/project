@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index">
     <!-- 头部 -->
     <div class="header">
       <router-link to="#" class="logo">
@@ -39,7 +39,51 @@
     </div>
     <!-- 条件搜车tabbar -->
     <div class="search-car-tabbar">
-      条件搜车
+      <Tabs value="name1">
+        <Tab-pane label="按品牌" name="name1" >
+          <router-link class="brand" to="#" v-for="(item,index) in tabbarContainer1" :key="index" >
+            <img :src="item.image" alt="">
+            <p>{{item.text}}</p>
+          </router-link>
+          <router-link class="brand" to="#">
+            <img src="../images/more.png" alt="">
+            <p>更多</p>
+          </router-link>
+        </Tab-pane>
+        <Tab-pane label="按条件" name="name2">
+          <router-link class="condition" to="#" v-for="(item,index) in tabbarContainer2" :key="index">
+            <p>{{item.text}}</p>
+          </router-link>
+          <router-link class="condition" to="#">
+            <p>更多>></p>
+          </router-link>
+        </Tab-pane>
+        <Tab-pane label="热门车" name="name3">
+          <router-link class="hot-car" to="#" v-for="(item,index) in tabbarContainer3" :key="index" >
+            <img :src="item.image" alt="">
+            <p>{{item.text}}</p>
+          </router-link>
+        </Tab-pane>
+        <Tab-pane label="新能源" name="name4">
+          <router-link class="newPower" to="#" v-for="(item,index) in tabbarContainer4" :key="index" >
+            <img :src="item.image" alt="">
+            <p>{{item.text}}</p>
+          </router-link>
+          <router-link class="newPower" to="#">
+            <img src="../images/more.png" alt="" style="width:45%">
+            <p>更多</p>
+          </router-link>
+        </Tab-pane>
+        <Tab-pane label="二手车" name="name5">
+          <router-link class="used-car-a" to="#" v-for="(item,index) in tabbarContainer5a" :key="index" >
+            <img :src="item.image" alt="">
+            <p>{{item.text}}</p>
+          </router-link>
+          <router-link class="used-car-b" to="#" v-for="(item,index) in tabbarContainer5b" :key="index" >
+            <p>{{item.text}}</p>
+          </router-link>
+        </Tab-pane>
+      </Tabs>
     </div>
     <!-- 轮播图 -->
     <div class="wrapper">
@@ -60,7 +104,62 @@
         </div>
       </router-link>
     </div>
+    <!-- 买车活动 -->
+    <div class="buy-car-active">
+      <router-link class="buy-car-active-one" to="#" >
+        <div class="imgBox" style="backgroundColor:#fc6964">
+          <img src="../images/liwu.png" alt="">
+        </div>
+        <p>优惠购车</p>
+      </router-link>
+      <router-link class="buy-car-active-one" to="#" >
+        <div class="imgBox" style="backgroundColor:#fdb63b">
+          <img src="../images/naozhong.png" alt="">
+        </div>
+        <p>商家特卖</p>
+      </router-link>
+      <router-link class="buy-car-active-one" to="#">
+        <div class="imgBox" style="backgroundColor:#9794fd">
+          <img src="../images/card.png" alt="">
+        </div>
+        <p>贷款买车</p>
+      </router-link>
+      <router-link class="buy-car-active-one" to="#">
+        <div class="imgBox" style="backgroundColor:#5d9ef8">
+          <img src="../images/zhong.png" alt="">
+        </div>
+        <p>易车众筹</p>
+      </router-link>
+      <router-link class="buy-car-active-one" to="#">
+        <div class="imgBox" style="backgroundColor:#60d4e1">
+          <img src="../images/maiche.png" alt="">
+        </div>
+        <p>高价卖车</p>
+      </router-link>
+    </div>
+    <!-- 猜你喜欢 -->
+    <div class="like-title">
+      <h3>猜你喜欢</h3>
+      <router-link class="title-right" to="#">
+        <img src="../images/update.png" alt="">
+        <p>换一换</p>
+      </router-link>
+    </div>
+    <div class="like-container">
+      <ul>
+        <li v-for="(item,index) in likeContainer" :key="index">
+          <router-link to="#" >
+            <img :src="item.image" alt="">
+            <h4>{{item.name}}</h4>
+            <p>{{item.price}}</p>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <!-- 新闻导航 -->
+    <div class="news-nav">
 
+    </div>
   </div>
 </template>
 
@@ -87,21 +186,179 @@ export default {
         '马自达'
       ],
       searchName:'',
-      carTabbar:[
+      // 条件搜车tabbar里的内容
+      tabbarContainer1:[
         {
-          name:'按品牌'
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_8_100.png',
+          text:'大众'
         },
         {
-          name:'按条件'
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_127_100.png',
+          text:'别克'
         },
         {
-          name:'热门车'
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_136_100.png',
+          text:'长安'
         },
         {
-          name:'新能源'
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_30_100.png',
+          text:'日产'
         },
         {
-          name:'二手车'
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_34_100.png',
+          text:'吉利'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_9_100.png',
+          text:'奥迪'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_7_100.png',
+          text:'丰田'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_26_100.png',
+          text:'本田'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_49_100.png',
+          text:'雪佛兰'
+        }
+      ],
+      tabbarContainer2:[
+        {
+          text:'8万以下'
+        },
+        {
+          text:'8-12万'
+        },
+        {
+          text:'12-18万'
+        },
+        {
+          text:'18-25万'
+        },
+        {
+          text:'SUV'
+        },
+        {
+          text:'紧凑型'
+        },
+        {
+          text:'中型车'
+        },
+        {
+          text:'MPV'
+        }
+      ],
+      tabbarContainer3:[
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/fc3999f560e1d16f97ae88e292923a4a.png',
+          text:'柯迪亚克'
+        },
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/cb40206852848bf9e1ba3b5106f3b431.jpg',
+          text:'Aion S'
+        },
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/702342e2fcbb34d4653eff3fd0a2657c.png',
+          text:'欧蓝德'
+        },
+
+        {
+          image:'http://img3.bitautoimg.com/autoalbum/files/20140618/071/0333060718_1.jpg',
+          text:'卡罗拉'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20160721/096/0417030965_1.jpg',
+          text:'途观'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20160518/413/0243074133_1.jpg',
+          text:'速腾'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20190102/831/0357438317_3.png',
+          text:'昂科拉'
+        },
+        {
+          image:'http://img4.bitautoimg.com/autoalbum/files/20180802/151/0503261510_3.png',
+          text:'凯越'
+        },
+      ],
+      tabbarContainer4:[
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/fc3999f560e1d16f97ae88e292923a4a.png',
+          text:'柯迪亚克'
+        },
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/cb40206852848bf9e1ba3b5106f3b431.jpg',
+          text:'Aion S'
+        },
+        {
+          image:'https://dd.yiche.com/inner-dsp-public/702342e2fcbb34d4653eff3fd0a2657c.png',
+          text:'欧蓝德'
+        },
+
+        {
+          image:'http://img3.bitautoimg.com/autoalbum/files/20140618/071/0333060718_1.jpg',
+          text:'卡罗拉'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20160721/096/0417030965_1.jpg',
+          text:'途观'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20160518/413/0243074133_1.jpg',
+          text:'速腾'
+        },
+        {
+          image:'http://img2.bitautoimg.com/autoalbum/files/20190102/831/0357438317_3.png',
+          text:'昂科拉'
+        },
+      ],
+      tabbarContainer5a:[
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_8_100.png',
+          text:'大众'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_9_100.png',
+          text:'奥迪'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_7_100.png',
+          text:'丰田'
+        },
+        {
+          image:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_26_100.png',
+          text:'本田'
+        },
+      ],
+      tabbarContainer5b:[
+        {
+          text:'5万以下'
+        },
+        {
+          text:'5-10万'
+        },
+        {
+          text:'10-15万'
+        },
+        {
+          text:'15万以上'
+        },
+        {
+          text:'淘宝认证'
+        },
+        {
+          text:'准新车'
+        },
+        {
+          text:'练手车'
+        },
+        {
+          text:'SUV'
         }
       ],
       // 轮播设置
@@ -165,7 +422,29 @@ export default {
           desc:'真实价格发票为证'
         }
       ],
-
+      // 猜你喜欢数据
+      likeContainer:[
+        {
+          image:'http://img1.bitautoimg.com/newsimg_300x200/autoalbum/files/20180810/601/0353126012_3.png',
+          name:'凯迪拉克XT5',
+          price:'32.97万起'
+        },
+        {
+          image:'http://img2.bitautoimg.com/newsimg_300x200/autoalbum/files/20190225/746/1144237461_6.jpg',
+          name:'航海家',
+          price:'38.88万起'
+        },
+        {
+          image:'http://img4.bitautoimg.com/newsimg_300x200/autoalbum/files/20181213/783/0130137839_6.jpg',
+          name:'沃尔沃XC60',
+          price:'36.29万起'
+        },
+        {
+          image:'http://img1.bitautoimg.com/newsimg_300x200/autoalbum/files/20181218/039/0536540398_3.png',
+          name:'宝马X3',
+          price:'38.98万起'
+        },
+      ]
     }
   },
   components:{
@@ -174,9 +453,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-
-
+<style lang="stylus">
+.index
+  background-color #f5f7fb
 .header
   height 5rem
   background-color #fff
@@ -206,7 +485,6 @@ export default {
   background-color #3677E0
   overflow hidden
   overflow-x scroll
-  position relative
   ul
     white-space nowrap
     li
@@ -217,7 +495,7 @@ export default {
   .right-opc
     width 2rem
     height 4.4rem
-    position fixed
+    position absolute
     background linear-gradient(to left, rgba(54,119,224,1),rgba(54,119,224,0))
     top 5rem
     right 0
@@ -225,6 +503,7 @@ export default {
   padding 1rem 1rem
   font-size 1.2rem
   color #666666
+  background-color #fff
   ul
     display inline-block
     li
@@ -237,6 +516,7 @@ export default {
 .search
   padding 0 2rem
   position relative
+  background-color #fff
   .inputSearch
     display inline-block
     width 85%
@@ -265,11 +545,91 @@ export default {
       left 50%
       transform translate(-50%)
 .search-car-tabbar
-  padding 0 2rem
-  height 10rem
+  padding 1rem 2rem
   width 100%
   box-sizing border-box
-  background-color #3677E0
+  background-color #fff
+  // background-color #3677E0
+  .ivu-tabs-nav
+    width 100%
+    .ivu-tabs-nav-prev,.ivu-tabs-nav-next
+      display none
+    .ivu-tabs-tab
+      width 20%
+      padding 0.8rem 0.8rem
+      box-sizing border-box
+      text-align center
+      margin 0
+      &:hover
+        color #3677E0
+    .ivu-tabs-ink-bar
+      width 20% !important
+      display none
+  .ivu-tabs-nav .ivu-tabs-tab-focused
+    font-weight bolder
+  .brand
+    width 20%
+    float left
+    text-align center
+    margin-bottom 1rem
+    color #666
+    img
+      width 60%
+  .condition
+    height 4.4rem
+    line-height 4.4rem
+    width 33.3%
+    float left
+    text-align center
+    color #666
+    font-size 1.6rem
+  .hot-car
+    width 25%
+    float left
+    text-align center
+    color #666
+    margin-bottom 1rem
+    img
+      width 70%
+  .newPower
+    width 25%
+    float left
+    text-align center
+    color #666
+    margin-bottom 1rem
+    img
+      width 70%
+  .used-car-a
+    width 25%
+    float left
+    justify-content center
+    color #666
+    position relative
+    padding 0 1rem
+    box-sizing border-box
+    margin-bottom 1.8rem
+    img
+      width 50%
+      display inline-block
+      float left
+      margin-right 0.5rem
+    p
+      position absolute
+      top 50%
+      transform translateY(-50%)
+      float left
+      display inline-block
+  .used-car-b
+    height 4.4rem
+    line-height 4.4rem
+    width 25%
+    float left
+    text-align center
+    color #666
+    font-size 1.4rem
+
+
+
 .wrapper >>> .swiper-pagination-bullet-active
   background red
   width 0.5rem
@@ -280,14 +640,15 @@ export default {
 .wrapper
     overflow: hidden
     width: 100%
-    background: #ccc
+    background-color #fff
     .swiper-img
       width: 100%
 .tuwen
   padding 0 2rem
   width 100%
-  height 10rem
   box-sizing border-box
+  background-color #fff
+  overflow hidden
   .tuwen-one
     position relative
     width 50%
@@ -312,6 +673,77 @@ export default {
         color #000
         font-weight bolder
         font-size 1.6rem
+.buy-car-active
+  width 100%
+  padding 2rem 2rem
+  overflow hidden
+  background-color #fff
+  .buy-car-active-one
+    width 20%
+    float left
+    text-align center
+    .imgBox
+      width 70%
+      text-align center
+      background-color pink
+      padding 1rem
+      margin 0 15% 0.5rem
+      box-sizing border-box
+      border-radius 50%
+      img
+        width 80%
+        top 10%
+    p
+      color #666
+.like-title
+  width 100%
+  padding 1rem 2rem
+  position relative
+  overflow hidden
+  justify-content center
+  margin-top 1rem
+  background-color #fff
+  h3
+    float left
+  img
+    width 4%
+    position absolute
+    top 50%
+    transform translateY(-50%)
+    right 7rem
+  p
+    position absolute
+    right 2rem
+    top 50%
+    font-size 1.4rem
+    transform translateY(-50%)
+.like-container
+  padding 2rem 0 2rem 2rem
+  background #FFF
+  margin-bottom 1rem
+  overflow hidden
+  overflow-x scroll
+  ul
+    white-space nowrap
+    li
+      width 9rem
+      display inline-block
+      text-align center
+      margin-right 1.5rem
+      img
+        width 100%
+      h4
+        color: #666
+      p
+        color: #ff8689
+.news-nav
+  width 100%
+  height 10rem
+  background-color pink
+
+
+
+
 
 
 
