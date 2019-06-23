@@ -22,13 +22,8 @@
       <div class="right-opc"></div>
     </div>
     <!-- 最近看过 -->
-    <div class="recently-look" v-if="islook">
-      最近看过:
-      <ul>
-        <li v-for="(item,index) in recentlyLook" :key="index">
-          <router-link class="carName" to="#">{{item}}</router-link>
-        </li>
-      </ul>
+    <div class="recently">
+      <RecentlyLook></RecentlyLook>
     </div>
     <!-- 搜索栏 -->
     <div class="search">
@@ -45,7 +40,7 @@
             <img :src="item.image" alt="">
             <p>{{item.text}}</p>
           </router-link>
-          <router-link class="brand" to="#">
+          <router-link class="brand" to="/allCars">
             <img src="../images/more.png" alt="">
             <p>更多</p>
           </router-link>
@@ -158,12 +153,29 @@
     </div>
     <!-- 新闻导航 -->
     <div class="news-nav">
-
+      <mt-navbar v-model="selected" class="mtnavbar">
+        <mt-tab-item v-for="(item,index) in mtnavbar" :key="index" :id="item.id" class="bar">{{item.content}}</mt-tab-item>
+      </mt-navbar>
+      <!-- tab-container -->
+      <mt-tab-container v-model="selected" class="mttabcontainer">
+        <mt-tab-container-item id="1">
+          <newsBox></newsBox>
+        </mt-tab-container-item>
+        <mt-tab-container-item id="2">
+          <mt-cell v-for="(n,i) in one" :key="i" :title="'测试 ' + n" />
+        </mt-tab-container-item>
+        <mt-tab-container-item id="3">
+          <mt-cell v-for="(n,i) in one" :key="i" :title="'选项 ' + n" />
+        </mt-tab-container-item>
+      </mt-tab-container>
     </div>
   </div>
 </template>
 
 <script>
+import newsBox from '@/components/newsBox'
+import RecentlyLook from '@/components/recentlyLook'
+
 export default {
   name:'index',
   data() {
@@ -177,13 +189,6 @@ export default {
         '新能源',
         '社区',
         '视频'
-      ],
-      islook:true,
-      // 从缓存中读取,最多不能超过三个,多余删除
-      recentlyLook:[
-        '凯迪拉克XT5',
-        '昂科威',
-        '马自达'
       ],
       searchName:'',
       // 条件搜车tabbar里的内容
@@ -444,11 +449,52 @@ export default {
           name:'宝马X3',
           price:'38.98万起'
         },
-      ]
+      ],
+      // 新闻数据
+      one:[
+        1,2,3
+      ],
+      selected:"1",
+      mtnavbar:[
+        {
+          id:'1',
+          content:'推荐'
+        },
+        {
+          id:'2',
+          content:'易车号'
+        },
+        {
+          id:'3',
+          content:'视频'
+        },
+        {
+          id:'4',
+          content:'热帖'
+        },
+        {
+          id:'5',
+          content:'新车'
+        },
+        {
+          id:'6',
+          content:'降价'
+        },
+        {
+          id:'7',
+          content:'测评'
+        },
+        {
+          id:'8',
+          content:'导购'
+        }
+      ],
+
     }
   },
   components:{
-
+    newsBox,
+    RecentlyLook
   }
 }
 </script>
@@ -499,20 +545,8 @@ export default {
     background linear-gradient(to left, rgba(54,119,224,1),rgba(54,119,224,0))
     top 5rem
     right 0
-.recently-look
-  padding 1rem 1rem
-  font-size 1.2rem
-  color #666666
+.recently
   background-color #fff
-  ul
-    display inline-block
-    li
-      border 1px solid rgba(0,0,0,.1)
-      border-radius 5rem
-      padding 0.7rem 1rem
-      margin 0 0.7rem
-      .carName
-        color #666666
 .search
   padding 0 2rem
   position relative
@@ -738,13 +772,34 @@ export default {
         color: #ff8689
 .news-nav
   width 100%
-  height 10rem
-  background-color pink
-
-
-
-
-
+  background-color #fff
+  padding 0 2rem
+  .is-selected
+    color #3677E0 !important
+    font-weight bolder
+  .mtnavbar
+    white-space nowrap
+    overflow hidden
+    overflow-x scroll
+    border-bottom 0.1rem solid #f5f7fb
+    .bar
+      display inline-block
+      color #666
+      margin 0 2rem
+      height 5rem
+      line-height 5rem
+      // &:hover
+      //   color #3677E0
+      //   font-weight bolder
+      //   border-bottom 0.2rem solid #3677E0
+      .mint-tab-item-label
+        font-size 1.6rem
+  .mttabcontainer
+    width 100%
+    padding 2rem 0
+    box-sizing border-box
+    .mint-cell-wrapper
+      background-image url('')
 
 
 
