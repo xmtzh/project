@@ -167,7 +167,7 @@ export default {
     top 4.4rem
     border-radius 0 0 0 .8rem
     background-color #fff
-    z-index 200
+    z-index 999
     .menu-top
       width 100%
       height 7.5rem

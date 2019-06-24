@@ -11,6 +11,7 @@ import 'mint-ui/lib/style.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import iView from 'iview';
 import Mint from 'mint-ui';
+import VueLazyLoad from 'vue-lazyload'
 
 
 
@@ -19,6 +20,7 @@ Vue.use(ElementUI);
 Vue.use(VueAwesomeSwiper);
 Vue.use(iView);
 Vue.use(Mint);
+Vue.use(VueLazyLoad);
 
 /* eslint-disable no-new */
 new Vue({
