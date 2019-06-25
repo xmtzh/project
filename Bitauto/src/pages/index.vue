@@ -36,7 +36,7 @@
     <div class="search-car-tabbar">
       <Tabs value="name1">
         <Tab-pane label="按品牌" name="name1" >
-          <router-link class="brand" to="#" v-for="(item,index) in tabbarContainer1" :key="index" >
+          <router-link class="brand" to="/brandCar" v-for="(item,index) in tabbarContainer1" :key="index" >
             <img :src="item.image" alt="">
             <p>{{item.text}}</p>
           </router-link>
@@ -135,10 +135,10 @@
     <!-- 猜你喜欢 -->
     <div class="like-title">
       <h3>猜你喜欢</h3>
-      <router-link class="title-right" to="#">
-        <img src="../images/update.png" alt="">
+      <div class="title-right" @click="changeLike">
+        <img :class="[rotate?'go':'aa']" src="../images/update.png" alt="">
         <p>换一换</p>
-      </router-link>
+      </div>
     </div>
     <div class="like-container">
       <ul>
@@ -171,6 +171,7 @@
     </div>
     <!-- 底部组件 -->
     <Footer></Footer>
+    <ScrollToTop></ScrollToTop>
   </div>
 </template>
 
@@ -178,6 +179,7 @@
 import newsBox from '@/components/newsBox'
 import RecentlyLook from '@/components/recentlyLook'
 import Footer from '@/components/footer'
+import ScrollToTop from '@/components/scrollToTop'
 
 export default {
   name:'index',
@@ -193,7 +195,9 @@ export default {
         '社区',
         '视频'
       ],
+      nowPage:0,
       searchName:'',
+      rotate:false,
       // 条件搜车tabbar里的内容
       tabbarContainer1:[
         {
@@ -431,7 +435,7 @@ export default {
         }
       ],
       // 猜你喜欢数据
-      likeContainer:[
+      likeContainerAll:[
         {
           image:'http://img1.bitautoimg.com/newsimg_300x200/autoalbum/files/20180810/601/0353126012_3.png',
           name:'凯迪拉克XT5',
@@ -452,6 +456,48 @@ export default {
           name:'宝马X3',
           price:'38.98万起'
         },
+        {
+          image:'http://img1.bitautoimg.com/newsimg_300x200/autoalbum/files/20190102/923/0952389232_3.png',
+          name:'汉兰达',
+          price:'23.98万起'
+        },
+        {
+          image:'http://img2.bitautoimg.com/newsimg_300x200/autoalbum/files/20190114/848/0427528481_3.png',
+          name:'领界',
+          price:'10.98万起'
+        },
+        {
+          image:'http://img3.bitautoimg.com/newsimg_300x200/autoalbum/files/20180802/130/0457211308_3.png',
+          name:'朗逸',
+          price:'10.79万起'
+        },
+        {
+          image:'http://img2.bitautoimg.com/newsimg_300x200/autoalbum/files/20180802/340/1126383400_3.png',
+          name:'迈腾',
+          price:'18.61万起'
+        },
+        {
+          image:'http://img3.bitautoimg.com/newsimg_300x200/autoalbum/files/20190110/355/0516213551_3.png',
+          name:'本田CR-V',
+          price:'16.98万起'
+        },
+        {
+          image:'http://img2.bitautoimg.com/newsimg_300x200/autoalbum/files/20190114/281/0428402819_3.png',
+          name:'马自达CX-8',
+          price:'25.88万起'
+        },
+        {
+          image:'http://img4.bitautoimg.com/newsimg_300x200/autoalbum/files/20190102/642/1013046423_3.png',
+          name:'探歌',
+          price:'13.58万起'
+        },
+        {
+          image:'http://img4.bitautoimg.com/newsimg_300x200/autoalbum/files/20190102/120/0404541201_3.png',
+          name:'宝沃BX5',
+          price:'12.38万起'
+        }
+      ],
+      likeContainer:[
       ],
       // 新闻数据
       one:[
@@ -492,13 +538,36 @@ export default {
           content:'导购'
         }
       ],
-
     }
   },
   components:{
     newsBox,
     RecentlyLook,
-    Footer
+    Footer,
+    ScrollToTop
+  },
+  methods:{
+    changeLike() {
+      this.likeContainer = []
+      this.rotate=!this.rotate;
+      let num = 4
+      let page = Math.ceil(this.likeContainerAll.length / num)
+      // console.log(page)
+      for(let i = this.nowPage*num; i < (this.nowPage+1)*num; i++){
+        if(this.likeContainerAll[i]){
+          this.likeContainer.push(this.likeContainerAll[i])
+        }
+      }
+      console.log(this.likeContainer)
+      if(this.nowPage === page - 1) {
+        this.nowPage = 0
+      }else {
+        this.nowPage++
+      }
+    }
+  },
+  mounted() {
+    this.changeLike()
   }
 }
 </script>
@@ -756,7 +825,7 @@ export default {
     font-size 1.4rem
     transform translateY(-50%)
 .like-container
-  padding 2rem 0 2rem 2rem
+  padding 1rem 0 2rem 2rem
   background #FFF
   margin-bottom 1rem
   overflow hidden
@@ -804,7 +873,11 @@ export default {
     box-sizing border-box
     .mint-cell-wrapper
       background-image url('')
-
+.aa
+  transition all 2s
+.go
+  transform rotate(-90deg)
+  transition all 2s
 
 
 </style>

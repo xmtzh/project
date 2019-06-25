@@ -43,9 +43,9 @@
 <script>
 export default {
   name:'header',
+  props:['title'],
   data() {
     return {
-      title:'选车',
       isShow: false,
       menuNavName:[
         {"pageName":"首页","url":"#"},
@@ -62,6 +62,7 @@ export default {
         {"pageName":"一成首付","url":"#"}
       ]
     }
+
   },
   methods: {
     allPage() {

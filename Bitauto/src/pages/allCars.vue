@@ -1,6 +1,6 @@
 <template>
   <div class="allCars">
-    <Header></Header>
+    <Header :title="title"></Header>
     <RecentlyLook></RecentlyLook>
     <!-- 条件选车 -->
     <div class="flexOne sortChooseCar">
@@ -48,11 +48,7 @@
         </mt-index-section>
       </mt-index-list>
     </div> -->
-
-
-
-
-
+    <ScrollToTop></ScrollToTop>
   </div>
 </template>
 
@@ -60,10 +56,12 @@
 import Header from '@/components/header'
 import RecentlyLook from '@/components/recentlyLook'
 import IndexList from '@/components/IndexList'
+import ScrollToTop from '@/components/scrollToTop'
 export default {
   name:'allcars',
   data() {
     return{
+      title:'选车',
       sortChooseCar:[
         {image:'http://image.bitautoimg.com/uimg/2017xuanchegaiban/ic_beans_8@2x.png',name:'上市新车'},
         {image:'http://image.bitautoimg.com/uimg/2017xuanchegaiban/ic_beans_7@2x.png',name:'销量排行'},
@@ -996,7 +994,8 @@ export default {
   components: {
     Header,
     RecentlyLook,
-    IndexList
+    IndexList,
+    ScrollToTop
   },
   methods: {
     onChoose(e) {
