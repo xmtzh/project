@@ -169,12 +169,15 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
+    <!-- 底部组件 -->
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import newsBox from '@/components/newsBox'
 import RecentlyLook from '@/components/recentlyLook'
+import Footer from '@/components/footer'
 
 export default {
   name:'index',
@@ -494,7 +497,8 @@ export default {
   },
   components:{
     newsBox,
-    RecentlyLook
+    RecentlyLook,
+    Footer
   }
 }
 </script>

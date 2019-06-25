@@ -40,9 +40,7 @@
       <index-list :data="playerList">
       </index-list>
     </div>
-    <div>
-      1234564897989844dccczxczcx
-    </div>
+
     <!-- <div class="wrap">
       <mt-index-list>
         <mt-index-section v-for="(item,index) in playerList" :key="index" :index="item.title">
@@ -62,7 +60,6 @@
 import Header from '@/components/header'
 import RecentlyLook from '@/components/recentlyLook'
 import IndexList from '@/components/IndexList'
-
 export default {
   name:'allcars',
   data() {
@@ -1052,6 +1049,9 @@ export default {
     .chooseOne
       img
         width 9.7rem
+  .wrap
+    width 100%
+    height 100%
 
 
 </style>

@@ -127,7 +127,6 @@ export default {
   position absolute
   width 100%
   height 100%
-  // overflow visible
   .index-list-wrap
     height 100%
     overflow auto
@@ -169,7 +168,6 @@ export default {
     position fixed
     right 0
     top 50%
-    z-index 300
     width 2rem
     padding 2rem 0
     text-align center
