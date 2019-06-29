@@ -4,10 +4,10 @@
     <Header :title="title"></Header>
     <div class="brand-car-title">
       <img :src="titleImg" alt="">
-      <span>{{titleName}}</span>
+      <span>{{brandCar.titleName}}</span>
     </div>
     <div class="brand-car-container">
-      <div class="brand-type" v-for="(brandType,index) in brandCars" :key="index">
+      <div class="brand-type" v-for="(brandType,index) in brandCar.brandCars" :key="index">
         <span class="brand-type-title">{{brandType.title}}</span>
         <router-link to="#" class="brand-car-desc" v-for="(item,index) in brandType.items" :key="index">
             <img :src="item.imgurl" alt="">
@@ -34,6 +34,7 @@ export default {
   data() {
     return {
       title:'品牌选车',
+      brandCar:{},
       titleImg:'http://image.bitautoimg.com/bt/car/default/images/logo/masterbrand/png/100/m_8_100.png',
       titleName:'大众',
       brandCars:[
@@ -360,8 +361,12 @@ export default {
     Footer,
     ScrollToTop
   },
-  mounted() {
-
+  created() {
+    this.$http.get('https://www.easy-mock.com/mock/5d156ff297fe7161eff463c1/example_copy/Bitauto/brandCar')
+    .then(res => {
+      this.brandCar = res.data.data
+      console.log(this.brandCar)
+    })
   }
 }
 </script>

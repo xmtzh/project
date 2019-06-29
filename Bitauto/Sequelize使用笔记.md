@@ -1,7 +1,7 @@
 ## Sequelize 笔记
 安装sequelize模块
 
-新建models文件夹  
+新建models文件夹
 在models文件夹下新建 db.js
 
 db.js 用来建立数据库连接
@@ -27,11 +27,11 @@ const { STRING, INTEGER, DATE, NOW } = Sequelize
 // 第一个参数为表名，后面为表的属性
 const Userlist = sequelize.define('userlist', {
   id: {
-    type: INTEGER(255),
+    type: INTEGER(11),
     primaryKey: true,
     autoIncrement: true
   },
-  username: { type: STRING(50) },
+  username: { type: STRING(255) },
   password: { type: STRING(255) }
   created_at: { type: DATE, defaultValue: NOW },
   updated_at: { type: DATE, defaultValue: NOW }

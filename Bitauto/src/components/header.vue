@@ -23,7 +23,7 @@
       <div class="menu" v-if="isShow">
         <div class="menu-top">
           <router-link class="img" to="/">首页</router-link>
-          <router-link class="loginBtn" to="#">
+          <router-link class="loginBtn" to="/login">
             请登录
             <img class="userImg" src="http://image.bitautoimg.com/uimg/mbt2016/images/ico_header_logout.png" alt="">
           </router-link>

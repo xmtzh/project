@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import Axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 import 'swiper/dist/css/swiper.css';
@@ -21,6 +22,7 @@ Vue.use(VueAwesomeSwiper);
 Vue.use(iView);
 Vue.use(Mint);
 Vue.use(VueLazyLoad);
+Vue.prototype.$http = Axios  //将axios挂载在vue 的原型链上
 
 /* eslint-disable no-new */
 new Vue({
