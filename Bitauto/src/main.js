@@ -12,7 +12,8 @@ import 'mint-ui/lib/style.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import iView from 'iview';
 import Mint from 'mint-ui';
-import VueLazyLoad from 'vue-lazyload'
+import VueLazyLoad from 'vue-lazyload';
+import store from './store/index'
 
 
 
@@ -23,11 +24,19 @@ Vue.use(iView);
 Vue.use(Mint);
 Vue.use(VueLazyLoad);
 Vue.prototype.$http = Axios  //将axios挂载在vue 的原型链上
+// 设置message的显示时间
+Vue.prototype.$messageS = function (msg) {
+  this.$message.success({ message: msg, duration: 1000 })
+}
+Vue.prototype.$messageE = function (msg) {
+  this.$message.error({ message: msg, duration: 1000 })
+}
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

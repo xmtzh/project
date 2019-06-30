@@ -5,7 +5,7 @@
       <router-link to="#" class="logo">
         <img class="logoImg" src="http://image.bitautoimg.com/uimg/mbt2018/images/logo1809.png" alt="">
       </router-link>
-      <router-link to="/login" class="login">
+      <router-link to="/userInfo" class="login">
         <img class="loginImg" src="http://image.bitautoimg.com/uimg/mbt2016/images/ico_header_logout.png" alt="">
       </router-link>
       <router-link to="#" class="active">
