@@ -31,9 +31,9 @@ const router =  new Router({
     {
       path: '/userInfo',
       name: 'UserInfo',
-      meta:{
-        auth: true
-      },
+      // meta:{
+      //   auth: true
+      // },
       component: UserInfo
     },
     {
