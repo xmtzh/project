@@ -9,7 +9,7 @@
       </div>
       <!-- 个人信息及等级 -->
       <div class="userMsg">
-        <span class="name">{{nickName}}</span>
+        <span class="name">{{$store.state.username}}</span>
         <span class="grade">{{grade}}</span>
         <span>关注{{follow}} <i>|</i> 粉丝{{fans}} <i>|</i> 社区{{community}}</span>
       </div>

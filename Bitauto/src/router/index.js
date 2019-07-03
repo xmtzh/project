@@ -5,8 +5,11 @@ import AllCars from '@/pages/allCars'
 import BrandCar from '@/pages/brandCar'
 import Login from '@/pages/login'
 import UserInfo from '@/pages/UserInfo'
+import CarDesc from '@/pages/carDesc'
 import UserLogin from '@/components/loginCP/userLogin'
 import UserRegister from '@/components/loginCP/userRegister'
+import GeneralDesc from '@/components/carDescChild/generalDesc'
+import CarDescPrice from '@/components/carDescChild/carDescPrice'
 import store from '@/store/index'
 
 Vue.use(Router)
@@ -29,11 +32,28 @@ const router =  new Router({
       component: BrandCar
     },
     {
+      path: '/carDesc',
+      name: 'CarDesc',
+      component: CarDesc,
+      children:[
+        {
+          path: '/',
+          name: 'GeneralDesc',
+          component: GeneralDesc,
+        },
+        {
+          path: 'carDescPrice',
+          name: 'CarDescPrice',
+          component: CarDescPrice,
+        }
+      ]
+    },
+    {
       path: '/userInfo',
       name: 'UserInfo',
-      // meta:{
-      //   auth: true
-      // },
+      meta:{
+        auth: true
+      },
       component: UserInfo
     },
     {

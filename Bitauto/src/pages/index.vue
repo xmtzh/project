@@ -154,7 +154,8 @@
     <!-- 新闻导航 -->
     <div class="news-nav">
       <mt-navbar v-model="selected" class="mtnavbar">
-        <mt-tab-item v-for="(item,index) in allData.mtnavbar" :key="index" :id="item.id" class="bar">{{item.content}}</mt-tab-item>
+        <mt-tab-item v-for="(item,index) in allData.mtnavbar" :key="index" :id="item.id" class="bar">
+          {{item.content}}</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
       <mt-tab-container v-model="selected" class="mttabcontainer">
@@ -229,6 +230,10 @@ export default {
       }else {
         this.nowPage++
       }
+    },
+    tiao() {
+      console.log('tiao')
+      this.$router.push({path:'/allCars'})
     }
   },
   created() {

@@ -9,7 +9,7 @@
     <div class="brand-car-container">
       <div class="brand-type" v-for="(brandType,index) in brandCar.brandCars" :key="index">
         <span class="brand-type-title">{{brandType.title}}</span>
-        <router-link to="#" class="brand-car-desc" v-for="(item,index) in brandType.items" :key="index">
+        <router-link to="/carDesc" class="brand-car-desc" v-for="(item,index) in brandType.items" :key="index">
             <img :src="item.imgurl" alt="">
             <div class="brand-car-desc-text">
               <span class="name">{{item.name}}</span>
