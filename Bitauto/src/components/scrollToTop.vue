@@ -64,7 +64,7 @@
   background-color #409eff
   position fixed
   right 2rem
-  bottom 5rem
+  bottom 6rem
   width 5rem
   height 5rem
   border-radius 50%

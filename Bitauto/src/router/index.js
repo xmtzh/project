@@ -10,6 +10,8 @@ import UserLogin from '@/components/loginCP/userLogin'
 import UserRegister from '@/components/loginCP/userRegister'
 import GeneralDesc from '@/components/carDescChild/generalDesc'
 import CarDescPrice from '@/components/carDescChild/carDescPrice'
+import AllCarDesc from '@/components/carDescChild/generalDescChild/allCarDesc'
+import NewCarDesc from '@/components/carDescChild/generalDescChild/newCarDesc'
 import store from '@/store/index'
 
 Vue.use(Router)
@@ -40,6 +42,18 @@ const router =  new Router({
           path: '/',
           name: 'GeneralDesc',
           component: GeneralDesc,
+          children:[
+            {
+              path: '/',
+              name: 'AllCarDesc',
+              component: AllCarDesc,
+            },
+            {
+              path: 'newCarDesc',
+              name: 'NewCarDesc',
+              component: NewCarDesc,
+            }
+          ]
         },
         {
           path: 'carDescPrice',
