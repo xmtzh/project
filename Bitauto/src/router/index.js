@@ -6,10 +6,13 @@ import BrandCar from '@/pages/brandCar'
 import Login from '@/pages/login'
 import UserInfo from '@/pages/UserInfo'
 import CarDesc from '@/pages/carDesc'
+import ComputePrice from '@/pages/computePrice'
 import UserLogin from '@/components/loginCP/userLogin'
 import UserRegister from '@/components/loginCP/userRegister'
 import GeneralDesc from '@/components/carDescChild/generalDesc'
 import CarDescPrice from '@/components/carDescChild/carDescPrice'
+import ComputeAllPrice from '@/components/computePriceChild/computeAllPrice'
+import ComputeLoan from '@/components/computePriceChild/computeLoan'
 import AllCarDesc from '@/components/carDescChild/generalDescChild/allCarDesc'
 import NewCarDesc from '@/components/carDescChild/generalDescChild/newCarDesc'
 import store from '@/store/index'
@@ -32,6 +35,23 @@ const router =  new Router({
       path: '/brandCar',
       name: 'BrandCar',
       component: BrandCar
+    },
+    {
+      path: '/computePrice',
+      name: 'ComputePrice',
+      component: ComputePrice,
+      children:[
+        {
+          path:'/',
+          name:'ComputeAllPrice',
+          component: ComputeAllPrice
+        },
+        {
+          path:'computeLoan',
+          name:'ComputeLoan',
+          component: ComputeLoan
+        },
+      ]
     },
     {
       path: '/carDesc',

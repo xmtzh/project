@@ -31,6 +31,11 @@ import Footer from '@/components/footer'
 import ScrollToTop from '@/components/scrollToTop'
 export default {
   name:'userInfo',
+  provide() {
+    return {
+      title: this.title
+    }
+  },
   data() {
     return {
       title:'上汽大众T-Cross',

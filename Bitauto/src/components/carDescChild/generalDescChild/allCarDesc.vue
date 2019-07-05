@@ -17,7 +17,12 @@
             <img src="../../../images/jiahao.png" alt="">
             <span>对比</span>
           </div>
-          <router-link to="#" class="compute conFlex">
+          <router-link :to="{path:'/computePrice',
+          query:{
+            nakedPrice:oneCar.guidingPrice,
+            title:title,
+            carDesc:oneCar.title,
+            carBir:oneCar.time}}" class="compute conFlex">
             <img src="../../../images/yunsuan.png" alt="">
             <span>计算器</span>
           </router-link>
@@ -33,6 +38,7 @@
 <script>
 export default {
   name:'allCarDesc',
+  inject:['title'],
   data() {
     return {
       allData:[
@@ -40,13 +46,15 @@ export default {
           type:'1.4升/110kW 涡轮增压',
           event:[
               {
-                title:'2019款 280TSI 双离合 舒适版',
+                time:'2019款',
+                title:' 280TSI 双离合 舒适版',
                 price:'14.49',
                 eventDesc:'7挡 双离合',
                 guidingPrice:'14.79'
               },
               {
-                title:'2019款 280TSI 双离合 豪华版',
+                time:'2019款',
+                title:' 280TSI 双离合 豪华版',
                 price:'15.69',
                 eventDesc:'7挡 双离合',
                 guidingPrice:'15.99'
@@ -57,13 +65,15 @@ export default {
           type:'1.5升/83kW ',
           event:[
             {
-              title:'2019款 1.5L 手自一体 风尚版',
+              time:'2019款',
+              title:' 1.5L 手自一体 风尚版',
               price:'12.49',
               eventDesc:'6挡 手自一体',
               guidingPrice:'12.79'
             },
             {
-              title:'2019款 1.5L 手自一体 舒适版',
+              time:'2019款',
+              title:' 1.5L 手自一体 舒适版',
               price:'13.69',
               eventDesc:'6挡 手自一体',
               guidingPrice:'13.99'
