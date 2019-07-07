@@ -13,7 +13,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import iView from 'iview';
 import Mint from 'mint-ui';
 import VueLazyLoad from 'vue-lazyload';
-import store from './store/index'
+import store from './store/index';
 
 
 
@@ -31,7 +31,12 @@ Vue.prototype.$messageS = function (msg) {
 Vue.prototype.$messageE = function (msg) {
   this.$message.error({ message: msg, duration: 1000 })
 }
-
+Vue.use(VueLazyLoad, {
+  preLoad: 1,
+  error: require('./images/error.png'),
+  loading: require('./images/loading.gif'),
+  attempt: 2,
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

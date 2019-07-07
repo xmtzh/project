@@ -17,15 +17,10 @@
             <img src="../../../images/jiahao.png" alt="">
             <span>对比</span>
           </div>
-          <router-link :to="{path:'/computePrice',
-          query:{
-            nakedPrice:oneCar.guidingPrice,
-            title:title,
-            carDesc:oneCar.title,
-            carBir:oneCar.time}}" class="compute conFlex">
+          <div class="compute conFlex" @click="changeRouter(oneCar)">
             <img src="../../../images/yunsuan.png" alt="">
             <span>计算器</span>
-          </router-link>
+          </div>
           <span class="floorPrice">
             询底价
           </span>
@@ -81,6 +76,16 @@ export default {
           ]
         },
       ]
+    }
+  },
+  methods: {
+    changeRouter(oneCar) {
+      console.log(oneCar)
+      sessionStorage.setItem("nakedPrice", oneCar.guidingPrice);
+      sessionStorage.setItem("title", this.title);
+      sessionStorage.setItem("Desc", oneCar.title);
+      sessionStorage.setItem("time", oneCar.time);
+      this.$router.push({path:'/computePrice'})
     }
   }
 }

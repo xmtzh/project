@@ -131,37 +131,33 @@ export default {
     height 100%
     overflow auto
 	  -webkit-overflow-scrolling touch //#issue-368550974
-
-  .index-group
-    padding-bottom 3rem
-    display flex
-    flex-direction column
-    background-color #fff
-
-  .index-group-title
-    height 3rem
-    line-height 3rem
-    padding-left 2rem
-    font-size 12px
-    color rgba(0, 0, 0, 0.5)
-    background-color #f5f5f5
-
-  .index-group-item
-    display flex
-    align-items center
-    padding 1rem 0
-    margin 0 2rem
-    list-style none
-    border-bottom 0.1rem solid #f4f4f4
-    .avatar
-      width 4rem
-      height 4rem
-      border-radius 50%
-
-    .name
-      margin-left 2rem
-      color rgba(0, 0, 0, 0.5)
-      font-size 14px
+    .index-group
+      padding-bottom 3rem
+      display flex
+      flex-direction column
+      background-color #fff
+      .index-group-title
+        height 3rem
+        line-height 3rem
+        padding-left 2rem
+        font-size 12px
+        color rgba(0, 0, 0, 0.5)
+        background-color #f5f5f5
+      .index-group-item
+        display flex
+        align-items center
+        padding 1rem 0
+        margin 0 2rem
+        list-style none
+        border-bottom 0.1rem solid #f4f4f4
+        .avatar
+          width 4rem
+          height 4rem
+          border-radius 50%
+        .name
+          margin-left 2rem
+          color rgba(0, 0, 0, 0.5)
+          font-size 14px
 
 
   .index-nav

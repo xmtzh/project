@@ -48,7 +48,6 @@
           this.scrollTop = document.documentElement.scrollTop ||
                             window.pageYOffset ||
                             document.body.scrollTop;
-          // console.log('123456---' + this.scrollTop)
           this.handleScroll()
         },true)
 

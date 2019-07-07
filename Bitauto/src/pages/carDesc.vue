@@ -168,7 +168,7 @@ export default {
         .navText
           color #999999
           font-size 1.6rem
-          padding-bottom 1rem
+          padding-bottom 1.1rem
         .navActive
           color #598BDD
           font-weight bolder

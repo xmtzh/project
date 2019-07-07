@@ -53,10 +53,10 @@ export default {
     ScrollToTop
   },
   created() {
-    this.nakedPrice = this.$route.query.nakedPrice,
-    this.title = this.$route.query.title
-    this.Desc = this.$route.query.carDesc
-    this.time = this.$route.query.carBir
+    this.nakedPrice = sessionStorage.getItem('nakedPrice')
+    this.title = sessionStorage.getItem('title')
+    this.Desc = sessionStorage.getItem('Desc')
+    this.time = sessionStorage.getItem('time')
   },
   methods: {
     changenav(text) {
@@ -69,6 +69,7 @@ export default {
 <style lang="stylus" scoped>
 .computePrice
   width 100%
+  background-color #f2f2f2
   .navbar
     width 100%
     height 4.4rem
@@ -84,7 +85,7 @@ export default {
         .navText
           color #999999
           font-size 1.6rem
-          padding-bottom 1rem
+          padding-bottom 1.15rem
         .navActive
           color #598BDD
           border-bottom 0.2rem solid #598BDD
