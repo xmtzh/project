@@ -86,7 +86,7 @@ export default {
   background-color #3677E0
   justify-content center
   position relative
-  z-index 200
+  z-index 10002
   .left
     width 8%
     height 100%
@@ -222,7 +222,7 @@ export default {
   position fixed
   top 0
   left 0
-  z-index 100
+  z-index 10001
 .bg1
   background rgba(0,0,0,0.3)
 

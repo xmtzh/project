@@ -1,7 +1,6 @@
 <template>
-  <div class="allCars" >
-    <div>12345</div>
-    <div class="bscroll-container" ref="carsWrapper">
+  <div class="allCars" ref="carsWrapper">
+    <div class="bscroll-container">
       <Header :title="title"></Header>
       <RecentlyLook></RecentlyLook>
       <!-- 条件选车 -->
@@ -53,15 +52,18 @@
             </ul>
           </li>
         </ul>
-        <div class="index-nav">
-          <ul>
-            <li v-for="(item,index) in indexList" :key="index"  class="nav-item" :class="{'active':currentIndex===index}" @click="selectMenu(index)">{{item}}</li>
-          </ul>
-        </div>
       </div>
       <ScrollToTop></ScrollToTop>
       <Footer></Footer>
     </div>
+    <div class="index-nav">
+      <ul>
+        <li v-for="(item,index) in indexList" :key="index"  class="nav-item" :class="{'active':currentIndex===index}" @click="selectMenu(index)">{{item}}</li>
+      </ul>
+    </div>
+    <transition name="fade">
+      <div class="index-indicator" v-show="moving">{{currentIndicator}}</div>
+    </transition>
   </div>
 </template>
 
@@ -78,9 +80,10 @@ export default {
     return{
       allCarsData:{},
       title:'选车',
-      currentIndex: 0,
       scrollY:0,
       listHeight:[],
+      moving: false,
+      currentIndicator: ''
     }
   },
   components: {
@@ -94,6 +97,7 @@ export default {
     selectMenu(index) {
       let indexGroup = this.$refs.indexGroup;
       let el = indexGroup[index];
+      this.currentIndex = index
       this.carsScroll.scrollToElement(el,300);
     },
     onChoose(e) {
@@ -121,14 +125,35 @@ export default {
       console.log(this.listHeight)
     },
   },
+  watch: {
+    currentIndex(newVal) {
+      clearTimeout(this.timer)
+      this.currentIndicator = this.indexList[this.currentIndex]
+      this.moving = true
+      this.timer = setTimeout(() => {
+        this.moving = false
+      }, 1000)
+    }
+  },
   computed: {
     indexList() {
       return this.allCarsData.playerList.map(group => {
         return group.title.substring(0, 1)
       })
-    }
+    },
+    currentIndex() {
+      for(let i = 0; i<this.listHeight.length; i++){
+        let height1 = this.listHeight[i];
+        let height2 = this.listHeight[i + 1];
+        if(!height2 || (this.scrollY >= height1 && this.scrollY < height2)){
+          return i
+        }
+      }
+      return 0
+    },
   },
   created() {
+    this.timer = null
     this.$http.get('https://www.easy-mock.com/mock/5d156ff297fe7161eff463c1/example_copy/Bitauto/allCars')
     .then(res => {
       this.allCarsData = res.data.data
@@ -148,7 +173,38 @@ export default {
   background-color #f5f7fb
   width 100vw
   height 100vh
-
+  .index-indicator
+    position absolute
+    width 5rem
+    height 5rem
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+    text-align center
+    line-height 5rem
+    background rgba(0, 0, 0, 0.7)
+    color #fff
+    font-size 2.2rem
+    border-radius 0.5rem
+    pointer-events none
+  .index-nav
+    position fixed
+    right 0.5rem
+    top 50%
+    width 2rem
+    padding 2rem 0
+    text-align center
+    color blue
+    border-radius 10
+    transform translateY(-50%)
+    z-index 10000
+    .nav-item
+      padding 0.3rem
+      font-size 1.2rem
+      color blue
+      list-style none
+      &.active
+        color #ffcd32
   .flexOne
     display flex
     background-color #fff
@@ -222,27 +278,15 @@ export default {
             margin-left 2rem
             color rgba(0, 0, 0, 0.5)
             font-size 14px
-    .index-nav
-      position fixed
-      right 0
-      top 50%
-      width 2rem
-      padding 2rem 0
-      text-align center
-      color blue
-      border-radius 10
-      transform translateY(-50%)
-      z-index 10000
-      .nav-item
-        padding 0.3rem
-        font-size 1.2rem
-        color blue
-        list-style none
-        &.active
-          color #ffcd32
+
   .wrap
     width 100%
     height 100%
+
+.fade-leave-active
+  transition opacity 0.5s
+.fade-enter,.fade-leave-to
+  opacity 0
 
 
 </style>

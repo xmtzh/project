@@ -70,7 +70,7 @@
   cursor pointer
   transition .3s
   box-shadow 0 0.3rem 0.6rem rgba(0, 0, 0, .5)
-  z-index 100
+  z-index 10000
   .el-icon-caret-top
     color #fff
     display block
