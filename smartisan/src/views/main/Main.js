@@ -19,8 +19,19 @@ class Main extends React.Component{
     localStorage.setItem("Index", index);
     this.setState({currentIndex:index})
   }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('新来的',nextProps)
+  // }
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props,'调用了Main组件')
+    // 判断当前路由 来 匹配 对应的 tababr
+    for (let i = 0; i < data.navBar.length;i++) {
+      if(this.props.location.pathname === data.navBar[i].path) {
+        this.setState({
+          currentIndex:i
+        })
+      }
+    }
   }
   render () {
     const { currentIndex } = this.state
@@ -47,8 +58,9 @@ class Main extends React.Component{
             <Route path="/classify" component={Classify} />
             <Route path="/shop" component={Shop} />
             <Route path="/mine" component={Mine} />
+            <Redirect to="/home" />
           </Switch>
-          {/* <Redirect to="/home" /> */}
+
         </div>
       </Router>
     )

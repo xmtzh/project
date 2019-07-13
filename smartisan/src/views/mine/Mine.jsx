@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Head from '../../components/head/Head'
 class Mine extends React.Component{
   state = {
 
@@ -8,7 +8,7 @@ class Mine extends React.Component{
   render () {
     return (
       <div>
-        Mine
+        <Head centerText={'个人中心'} only={true} />
       </div>
     )
   }

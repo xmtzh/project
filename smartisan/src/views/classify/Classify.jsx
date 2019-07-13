@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from '../../components/head/Head'
 
 class Classify extends React.Component{
   state = {
@@ -8,7 +9,7 @@ class Classify extends React.Component{
   render () {
     return (
       <div>
-        Classify
+        <Head leftMenu={true} centerText={'分类'} rightSearch={true} />
       </div>
     )
   }

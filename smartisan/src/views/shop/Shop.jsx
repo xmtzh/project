@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from '../../components/head/Head'
 
 class Shop extends React.Component{
   state = {
@@ -8,7 +9,7 @@ class Shop extends React.Component{
   render () {
     return (
       <div>
-        Shop
+        <Head centerText={'购物车'} only={true}/>
       </div>
     )
   }
