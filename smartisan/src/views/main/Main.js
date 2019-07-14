@@ -16,15 +16,25 @@ class Main extends React.Component{
     currentIndex: 0
   }
   active = (index) => {
-    localStorage.setItem("Index", index);
     this.setState({currentIndex:index})
   }
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('新来的',nextProps)
+  // shouldComponentUpdate() {
+  //   console.log('-----')
   // }
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    console.log('新来的',nextProps)
+    for (let i = 0; i < data.navBar.length; i++) {
+      if (nextProps.location.pathname === data.navBar[i].path) {
+        this.setState({
+          currentIndex: i
+        })
+      }
+    }
+  }
+  componentWillMount() {
     console.log(this.props,'调用了Main组件')
     // 判断当前路由 来 匹配 对应的 tababr
+    console.log(this.props.location.pathname)
     for (let i = 0; i < data.navBar.length;i++) {
       if(this.props.location.pathname === data.navBar[i].path) {
         this.setState({
@@ -32,12 +42,13 @@ class Main extends React.Component{
         })
       }
     }
+
   }
   render () {
     const { currentIndex } = this.state
+    console.log(this.state.currentIndex)
     return (
-      <Router>
-
+      <div>
         <div className="Main_navBar">
           {
             data.navBar.map((navbar,index) => (
@@ -54,15 +65,14 @@ class Main extends React.Component{
         </div>
         <div className="Main_container">
           <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/classify" component={Classify} />
-            <Route path="/shop" component={Shop} />
-            <Route path="/mine" component={Mine} />
-            <Redirect to="/home" />
+            <Route path="/main/mine" component={Mine} />
+            <Route path="/main/home" component={Home} />
+            <Route path="/main/classify" component={Classify} />
+            <Route path="/main/shop" component={Shop} />
+            {/* <Redirect from="/main" to="/main/mine" /> */}
           </Switch>
-
         </div>
-      </Router>
+      </div>
     )
   }
 }

@@ -14,7 +14,7 @@ class Head extends React.Component{
   }
   newRoute = () => {
     this.setState({ isShow: false })
-    this.props.history.push('/home')
+    this.props.history.push('/main/home')
     console.log(this)
   }
   render () {

@@ -24,7 +24,7 @@ class Home extends React.Component{
     }, 100);
   }
   render () {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div className="home">
         <Head leftMenu={true} centerImg={true} rightSearch={true}/>

@@ -1,0 +1,71 @@
+.Mine
+  width 100%
+  background url('../../image/mine/mineBg.png')
+  background-size cover
+  overflow hidden
+  margin-bottom 1.35rem
+  .MineHead
+    background-color #fff
+    margin 0.3rem
+    border-radius 0.3rem
+    .MineHead_user
+      padding 0.3rem
+      display flex
+      align-items center
+      position relative
+      &:after
+        content ''
+        position absolute
+        top 0
+        left 0
+        width 200%
+        height 200%
+        transform scale(0.5)
+        transform-origin 0 0
+        border-bottom 1px solid #dddddd
+      .user_avatar
+        border-radius 50%
+        width 1.5rem
+        height 1.5rem
+        margin-right 0.5rem
+      span
+        font-size 0.45rem
+        color #333
+      .right
+        position absolute
+        right 0.3rem
+        width 0.4rem
+        height 0.4rem
+    .MineHead_server
+      width 100%
+      ul
+        display:flex
+        align-items center
+        list-style none
+        margin 0
+        padding 0
+        li
+          display flex
+          position relative
+          flex-direction column
+          justify-content center
+          align-items center
+          width 25%
+          height 1.7rem
+          &:after
+            content ''
+            position absolute
+            top 0
+            left 0
+            width 200%
+            height 200%
+            transform scale(0.5)
+            transform-origin 0 0
+            border-right 1px solid #dddddd
+          img
+            width 0.7rem
+            height 0.7rem
+            margin-bottom 0.2rem
+          span
+            color #666666
+            font-size 0.33rem

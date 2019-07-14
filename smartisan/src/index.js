@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Main from './views/main/Main'
+
+import Desc from './views/desc/Desc'
 import * as serviceWorker from './serviceWorker';
 import "lib-flexible"
-import { withRouter } from 'react-router-dom'
 
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
 const Root = () => {
   return (
-    <BrowserRouter basename='/'>
-      <Route path={`/`} component={Main}></Route>
+    <BrowserRouter>
+      <Route path='/desc' component={Desc}></Route>
+      <Route path='/main' component={Main}></Route>
+      <Redirect from="/" to="/main/home"/>
     </BrowserRouter>
   )
 

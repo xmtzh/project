@@ -4,25 +4,25 @@ const data= {
       text: '首页',
       icon: require("../../image/tabBar/home.png"),
       iconT: require("../../image/tabBar/homeT.png"),
-      path:'/home'
+      path: '/main/home'
     },
     {
       text: '分类',
       icon: require("../../image/tabBar/caidan.png"),
       iconT: require("../../image/tabBar/caidanT.png"),
-      path: '/classify'
+      path: '/main/classify'
     },
     {
       text: '购物车',
       icon: require("../../image/tabBar/shop.png"),
       iconT: require("../../image/tabBar/shopT.png"),
-      path: '/shop'
+      path: '/main/shop'
     },
     {
       text: '个人中心',
       icon: require("../../image/tabBar/mine.png"),
       iconT: require("../../image/tabBar/mineT.png"),
-      path: '/mine'
+      path: '/main/mine'
     },
   ]
 }
