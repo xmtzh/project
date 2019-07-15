@@ -10,6 +10,7 @@ import Classify from '../classify/Classify'
 import Home from '../home/Home'
 import Shop from '../shop/Shop'
 import Mine from '../mine/Mine'
+import GoodsFloor from '../goodsFloor/GoodsFloor'
 
 class Main extends React.Component{
   state = {
@@ -69,6 +70,7 @@ class Main extends React.Component{
             <Route path="/main/home" component={Home} />
             <Route path="/main/classify" component={Classify} />
             <Route path="/main/shop" component={Shop} />
+            <Route path="/main/goodsFloor" component={GoodsFloor} />
             {/* <Redirect from="/main" to="/main/mine" /> */}
           </Switch>
         </div>

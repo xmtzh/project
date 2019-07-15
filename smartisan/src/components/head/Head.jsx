@@ -17,6 +17,13 @@ class Head extends React.Component{
     this.props.history.push('/main/home')
     console.log(this)
   }
+  GOback = () => {
+    console.log('返回')
+    this.props.history.goBack()
+  }
+  componentWillMount() {
+    window.scrollTo(0, 0)
+  }
   render () {
     // console.log(this.props.left, this.props.right, this.props.center, this.props.img)
     const { leftMenu, leftGOback, centerImg, centerText, rightSearch, only } = this.props
@@ -29,13 +36,18 @@ class Head extends React.Component{
           onClick={this.isShowMenu}>
             <img src={require('../../image/head/menu.png')} alt=""/>
           </div>
+          {/* 左侧返回按钮 */}
+          <div className="headLeft headChild desc" style={{ display: leftGOback ? "" : "none" }}
+            onClick={this.GOback}>
+            <span>返回</span>
+          </div>
           {/* 中间锤子图标 */}
           <div className="headCenter headChild" style={{ display: centerImg ? "" : "none"}}>
             <img src={require('../../image/head/chuizi.png')} alt="" />
           </div>
           {/* 中间文字 */}
           <div
-            className={`headCenter headChild ${only ? "allWith" : ""}`}
+            className={`headCenter headChild ${only ? "allWith" : ""} ${leftGOback ? "desc1":""}`}
             style={{ display: centerText ? "" : "none"}}>
             <span>{centerText}</span>
           </div>
