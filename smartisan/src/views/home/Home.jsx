@@ -23,6 +23,7 @@ class Home extends React.Component{
       });
     }, 100);
   }
+
   render () {
     // console.log(this.props)
     return (

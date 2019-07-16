@@ -1,16 +1,18 @@
 import React from 'react'
 import BScroll from 'better-scroll'
 import { Carousel, WingBlank } from 'antd-mobile';
+import { connect } from 'react-redux'
 
+import { addGoods ,updateGoods} from '../../redux/actions'
 import { data, serverDesc, recommend} from './DescData'
 import './Desc.styl'
 import Head from '../../components/head/Head'
-import GoodsBox from '../../components/goodsBox/GoodsBox'
 
 
 class Desc extends React.Component{
   state = {
     allData:{},
+    listHeight:[],
     headBars: [
       {
         name:'商品',
@@ -32,9 +34,9 @@ class Desc extends React.Component{
     spanCurrent:0,
     goodsIndex:0,
     sizeIndex:3,
-    shopNum:1
+    shopNum:1,
+    selectType:true
   }
-  scrollHandler = this.handleScroll.bind(this);
   componentWillMount() {
     let id = this.props.location.state.id
     for(let i = 0; i < data.length; i++) {
@@ -47,33 +49,154 @@ class Desc extends React.Component{
   }
   componentDidMount() {
     const content = document.querySelector('.wrapper');
+    const shopContent = document.querySelector('.shopWrapper');
+    // 开启bs
     this.scroll = new BScroll(content, {
-      click:true
+      click:true,
+      probeType:3
     });
-    window.addEventListener('scroll', this.scrollHandler);
-    console.log(content);
-    console.log(this.scroll, 'scroll');
-  }
+    this.shopScroll = new BScroll(shopContent, {
+      click:true,
+      probeType:3
+    });
+    // 监听滚动事件
+    this.scroll.on('scroll', pos => {
+      this.scrollY = Math.abs(Math.round(pos.y));
+      // console.log(this.scrollY);
+      this.currentIndex()
+    })
+    this.handleScroll()
+    // console.log(this.refs.goods.clientHeight)
 
-  handleScroll(event) {
-    let scrollTop = event.refs.DescContainer.scrollTop;
-    // this._handleScroll(scrollTop);
-    console.log('1111111111',scrollTop)
   }
+  handleScroll = () => {
+    const { headBars, listHeight } = this.state
+    let height = 0
+    listHeight.push(height)
+    let ref = this.refs
+    for (let i = 0; i < headBars.length; i++) {
+      height += ref[headBars[i].ref].clientHeight
+      // 暂时还没解决使用antd Swiper组件时 获取的clientHeight为0
+      if(i === 0){
+        height += 308
+      }
+      listHeight.push(height)
+    }
+    this.setState({ listHeight })
+    console.log(listHeight,'555555')
+  }
+  currentIndex = ()=> {
+    const { listHeight, spanCurrent } = this.state
+    for (let i = 0; i <listHeight.length; i++) {
+      let height1 = listHeight[i];
+      let height2 = listHeight[i + 1];
+      if (this.scrollY >= height1 && this.scrollY < height2) {
+        // return i
+        // console.log(i,'uuuuuuuuuuuuuuu')
+        if (i !== spanCurrent) {
+          this.setState({
+            spanCurrent: i
+          })
+        }
+      }
+    }
+    return 0
+  }
+  // 点击导航按钮的事件
   changeSpanCurrent = (index,el) => {
     console.log('changeSpanCurrent')
     this.setState({
       spanCurrent:index
     })
-    // console.log(this.refs)
-    this.scroll.scrollToElement(this.refs[el], 500)
-    // console.log(this.scroll)
+    this.scroll.scrollToElement(this.refs[el], 100)
+  }
+  // 点击展开类型选择框
+  addShopCar = () => {
+    this.setState({ selectType:false})
+  }
+  // 点击之后添加进购物车
+  confirm = () => {
+    const { allData, goodsIndex, sizeIndex, shopNum} = this.state
+    const { total } = this.props
+    this.setState({ selectType: true })
+    const data = {
+      id: allData.id,
+      name: allData.name,
+      size: allData.size[sizeIndex],
+      num: shopNum,
+      type: allData.color[goodsIndex].colorName,
+      img: allData.color[goodsIndex].goodsImg[0]
+    }
+    // 判断此物品是否已经存在购物车内
+    let result = { bool:false}
+    // let result = total.some(todo => {
+    //   if (todo.id === data.id && todo.size === data.size && todo.type === data.type) {
+    //     return true
+    //   }
+    // })
+    for (let i = 0; i < total.length; i++) {
+      if (total[i].id === data.id && total[i].size === data.size && total[i].type === data.type) {
+        result.bool = true
+        result.index = i
+      }
+    }
+    console.log(result, 'result')
+    // 如果state里没有数据，直接添加
+    if (!total[0] || !result.bool) {
+      console.log('第一次')
+      this.props.addGoods(data)
+    }else {
+      // 在这里直接修改total中一样的商品的数量，然后直接把整个total当作data传到reducer
+      total[result.index].num += data.num
+      this.props.updateGoods(total)
+      // console.log(total)
+      // console.log('已存在', result.index)
+    }
+    console.log(total, 'total')
+
+
+
+
+
+
+  }
+  // 改变购买数量
+  reduceShopNum = () => {
+    console.log('reduce')
+    let shopNum = this.state.shopNum
+    if (shopNum<=1){
+      return
+    }else {
+      shopNum -= 1
+      this.setState({ shopNum })
+    }
+  }
+  addShopNum = () => {
+    console.log('add')
+    let shopNum = this.state.shopNum
+    shopNum += 1
+    this.setState({ shopNum })
+  }
+  //改变购买数量
+  changeSize = (index) => {
+    console.log('changeSize')
+    this.setState({
+      sizeIndex:index
+    })
+  }
+  //改变选中颜色
+  changeColor = (index) => {
+    this.setState({
+      goodsIndex: index
+    })
   }
   render () {
     // const { data } = this.props.location.state
-    const { allData, headBars, spanCurrent, goodsIndex, sizeIndex, shopNum} = this.state
+    console.log(this.state.shopNum,'44444444444')
+    const { allData, headBars, spanCurrent, goodsIndex, sizeIndex, shopNum, selectType} = this.state
     console.log(this.props)
     console.log('alldata',this.state.allData)
+    console.log(this.props.total)
     return (
       <div className="Desc" >
         <Head centerText={allData.name} leftGOback={true} />
@@ -94,42 +217,45 @@ class Desc extends React.Component{
         </div>
         <div className="wrapper" ref='DescContainer'>
           <div className="DescContainer">
-            <div className="DescSwiper bottom" ref='goods'>
-              <WingBlank>
-                <Carousel
-                  infinite
-                  dotStyle={{ backgroundColor: '#d3d3d3', marginBottom: '0.5rem', width: '0.15rem', height: '0.15rem' }}
-                  dotActiveStyle={{ marginBottom: '0.5rem', width: '0.15rem', height: '0.15rem' }}>
-                  {allData.color[goodsIndex].goodsImg.map(val => (
-                    <div key={val} href="#" style={{ display: 'inline-block', width: '100%' }}>
-                      <img
-                        src={val}
-                        alt=""
-                        style={{ width: '100%', verticalAlign: 'top', borderRadius: '8px' }}
-                        onLoad={() => { window.dispatchEvent(new Event('resize')); }}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </WingBlank>
-            </div>
-            <div className="DescGoodsInfo bottom">
-              <div className="DescTitle">
-                <span >商品信息</span>
+            <div ref='goods'>
+              <div className="DescSwiper bottom" >
+                <WingBlank>
+                  <Carousel
+                    infinite
+                    dotStyle={{ backgroundColor: '#d3d3d3', marginBottom: '0.5rem', width: '0.15rem', height: '0.15rem' }}
+                    dotActiveStyle={{ marginBottom: '0.5rem', width: '0.15rem', height: '0.15rem' }}
+                    >
+                    {allData.color[goodsIndex].goodsImg.map(val => (
+                      <div key={val} href="#" style={{ display: 'inline-block', width: '100%' }}>
+                        <img
+                          src={val}
+                          alt=""
+                          style={{ width: '100%', verticalAlign: 'top', borderRadius: '8px' }}
+                          onLoad={() => { window.dispatchEvent(new Event('resize')); }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                </WingBlank>
               </div>
-              <div className="DescGoodsInfo_all">
-                <span className="name">{allData.name}</span>
-                <span className="desc">{allData.desc}</span>
-                <span className="price">￥{allData.price}</span>
+              <div className="DescGoodsInfo bottom">
+                <div className="DescTitle">
+                  <span >商品信息</span>
+                </div>
+                <div className="DescGoodsInfo_all">
+                  <span className="name">{allData.name}</span>
+                  <span className="desc">{allData.desc}</span>
+                  <span className="price">￥{allData.price}</span>
+                </div>
               </div>
-            </div>
-            <div className="DescSelected bottom">
-              <span className="type">已选版本</span>
-              <span>颜色: <span> {allData.color[goodsIndex].colorName}</span></span>
-              <span>尺码: <span> {allData.size[sizeIndex]}</span></span>
-              <span>选购提示: <span> {allData.promt}</span></span>
-              <span>数量: <span> {shopNum}</span></span>
-              <img src={require('../../image/other/right.png')} alt=""/>
+              <div className="DescSelected bottom">
+                <span className="type">已选版本</span>
+                <span>颜色: <span> {allData.color[goodsIndex].colorName}</span></span>
+                <span>尺码: <span> {allData.size[sizeIndex]}</span></span>
+                <span>选购提示: <span> {allData.promt}</span></span>
+                <span>数量: <span> {shopNum}</span></span>
+                <img src={require('../../image/other/right.png')} alt="" />
+              </div>
             </div>
             <div className="DescGoodsImg bottom" ref='goodsDesc'>
               <div className="DescTitle">
@@ -143,35 +269,37 @@ class Desc extends React.Component{
                 }
               </div>
             </div>
-            <div className="DescTeachPromt bottom" ref='promt'>
-              <div className="DescTitle">
-                <span>技术参数</span>
+            <div ref='promt'>
+              <div className="DescTeachPromt bottom">
+                <div className="DescTitle">
+                  <span>技术参数</span>
+                </div>
+                <ul>
+                  {
+                    allData.teachParam.map((item, index) => (
+                      <li key={index}>
+                        <span>{item.name}</span>
+                        <span className="desc">{item.desc}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
               </div>
-              <ul>
-                {
-                  allData.teachParam.map((item, index) => (
-                    <li key={index}>
-                      <span>{item.name}</span>
-                      <span className="desc">{item.desc}</span>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-            <div className="DescServer bottom">
-              <div className="DescTitle">
-                <span>服务说明</span>
+              <div className="DescServer bottom">
+                <div className="DescTitle">
+                  <span>服务说明</span>
+                </div>
+                <ul>
+                  {
+                    serverDesc.map((item, index) => (
+                      <li key={index}>
+                        <img src={item.img} alt="" />
+                        <span>{item.desc}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
               </div>
-              <ul>
-                {
-                  serverDesc.map((item,index) => (
-                    <li key={index}>
-                      <img src={item.img} alt=""/>
-                      <span>{item.desc}</span>
-                    </li>
-                  ))
-                }
-              </ul>
             </div>
             <div className="DescRecommend bottom" ref='recom'>
               <div className="DescTitle">
@@ -196,9 +324,98 @@ class Desc extends React.Component{
             </div>
           </div>
         </div>
-
+        <div className="footerBar">
+          <img src={require('../../image/desc/shop.png')} alt=""/>
+          <div className="DescfooterBar_btn" style={{ display: selectType ? "" : "none" }}>
+            <button className='addShopCar' onClick={this.addShopCar}>加入购物车</button>
+            <button className='Buy' onClick={this.goHome}>现在购买</button>
+          </div>
+          <div className="DescfooterBar_btn" style={{ display: selectType ? "none" : "" }}>
+            <button className='confirm' onClick={this.confirm}>确认</button>
+          </div>
+        </div>
+        <div className="shopCar" style={{ display: selectType ? "none" : "" }}>
+          <div className="shopCarContainer">
+            <div className="shopCarContainer_head">
+              <img src={allData.color[goodsIndex].goodsImg[0]} alt=""/>
+              <div className="head_text">
+                <span>{allData.name}</span>
+                <p>
+                  <span>{allData.color[goodsIndex].colorName}</span>
+                  <span>{allData.size[sizeIndex]}</span>
+                  <span>{allData.promt}</span>
+                </p>
+                <span className="price">￥{allData.price}</span>
+              </div>
+            </div>
+            <div className="shopWrapper">
+              <div className="allSelect">
+                <div className='colorSelect'>
+                  <div className="DescTitle">
+                    <span>颜色选择</span>
+                  </div>
+                  <ul className="SelectOne">
+                    {
+                      allData.color.map((item,index) => (
+                        <li
+                        onClick={()=>{this.changeColor(index)}}
+                        key={index}
+                        className={index === goodsIndex ?'DescActive':''}>
+                          <img src={item.colorCircular} alt=""/>
+                          <span>{item.colorName}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+                <div className="sizeSelect">
+                  <div className="DescTitle">
+                    <span>尺码选择</span>
+                  </div>
+                  <ul className="SelectOne">
+                    {
+                      allData.size.map((item,index) => (
+                        <li
+                          onClick={() => { this.changeSize(index)}}
+                        key={index}
+                        className={index === sizeIndex ? 'DescActive' : ''}>
+                          <span>{item}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+                <div className="numberSelect">
+                  <div className="DescTitle">
+                    <span>选择数量</span>
+                  </div>
+                  <div className="shopNum">
+                    <span onClick={this.reduceShopNum} className={`btn ${shopNum > 1 ?'shadow' : ''}`}>
+                      <span>-</span>
+                    </span>
+                    <span>{shopNum}</span>
+                    <span onClick={this.addShopNum} className="btn shadow">
+                      <span>+</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 }
-export default Desc
+const mapStateToProps = (state) => ({
+  total : state.shopCart
+})
+const mapDispatchToProps = (dispatch) => ({
+  addGoods: data => dispatch(addGoods(data)),
+  updateGoods: data => dispatch(updateGoods(data))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Desc)

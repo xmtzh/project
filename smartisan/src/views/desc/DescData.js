@@ -8,6 +8,7 @@ const data = [
     color:[
       {
         colorName:'酒红色',
+        colorCircular:'https://resource.smartisan.com/resource/a926248d0d3081aff35b28a84d333266.jpg',
         goodsImg:[
           'https://resource.smartisan.com/resource/2f9a0f5f3dedf0ed813622003f1b287b.jpg?x-oss-process=image/format,webp',
           'https://resource.smartisan.com/resource/0cd8f107c70d002caf902745355e269a.jpg?x-oss-process=image/format,webp',
@@ -17,6 +18,7 @@ const data = [
         ]
       },
       {
+        colorCircular: 'https://resource.smartisan.com/resource/af072ad5fb5b17dd3e5389ba0d12ba89.jpg',
         colorName:'黑色',
         goodsImg:[
           'https://resource.smartisan.com/resource/578116bddf1d170c89e9af7ba5073fb6.jpg?x-oss-process=image/format,webp',
@@ -27,6 +29,7 @@ const data = [
         ]
       },
       {
+        colorCircular: 'https://resource.smartisan.com/resource/fe1a2348340986163776aea324283d33.jpg',
         colorName:'白色',
         goodsImg:[
           'https://resource.smartisan.com/resource/1c13034d1028f3620d487c1db7184a51.jpg?x-oss-process=image/format,webp',
@@ -37,6 +40,7 @@ const data = [
         ]
       },
       {
+        colorCircular: 'https://resource.smartisan.com/resource/f16dc5fe5db484cd4cd557521ede1ecb.jpg',
         colorName:'藏蓝色',
         goodsImg: [
           'https://resource.smartisan.com/resource/1db1a8bfee3623fded41c9115b5a5335.jpg?x-oss-process=image/format,webp',
