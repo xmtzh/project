@@ -16,7 +16,8 @@ const data= {
       text: '购物车',
       icon: require("../../image/tabBar/shop.png"),
       iconT: require("../../image/tabBar/shopT.png"),
-      path: '/main/shop'
+      path: '/main/shop',
+      path1: '/main/shop1'
     },
     {
       text: '个人中心',

@@ -8,8 +8,16 @@ import './Shop.styl'
 
 class Shop extends React.Component{
   state = {
-
+    totalCount:0
   }
+  // componentWillMount() {
+    // let { totalCount } = this.state
+    // for(let i = 0; i < this.props.total.length; i++) {
+    //   totalCount += this.props.total[i].num
+    //   console.log(totalCount, this.props.total[i].num)
+    // }
+    // this.setState({ totalCount})
+  // }
   login = () => {
     this.props.history.push('/desc')
   }
@@ -33,4 +41,6 @@ class Shop extends React.Component{
     )
   }
 }
+
+
 export default Shop

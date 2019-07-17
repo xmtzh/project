@@ -6,7 +6,8 @@ import './Head.styl'
 
 class Head extends React.Component{
   state = {
-    isShow:false
+    isShow:false,
+    text:true
   }
   isShowMenu = () => {
     this.setState({ isShow:!this.state.isShow})
@@ -21,12 +22,18 @@ class Head extends React.Component{
     console.log('返回')
     this.props.history.goBack()
   }
+  Promt = () => {
+    this.props.changePage()
+    this.setState({
+      text: !this.state.text
+    })
+  }
   componentWillMount() {
     window.scrollTo(0, 0)
   }
   render () {
     // console.log(this.props.left, this.props.right, this.props.center, this.props.img)
-    const { leftMenu, leftGOback, centerImg, centerText, rightSearch, only } = this.props
+    const { leftMenu, leftGOback, centerImg, centerText, rightSearch, only,rightPropmt } = this.props
     const { isShow } = this.state
     return (
       <div>
@@ -54,6 +61,11 @@ class Head extends React.Component{
           {/* 右侧搜索按钮 */}
           <div className="headRight headChild" style={{ display: rightSearch ? "" : "none" }}>
             <img src={require('../../image/head/search.png')} alt="" />
+          </div>
+          {/* 右侧编辑按钮 */}
+          <div className="headRight headChild posa" style={{ display: rightPropmt ? "" : "none" }}
+            onClick={this.Promt}>
+            <span>{this.state.text ? '编辑':'完成'}</span>
           </div>
         </div>
         <div className={`menuBar ${isShow?"active":""}`}>

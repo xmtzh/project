@@ -10,7 +10,7 @@ function shopCart(state = initGoods, action) {
     case UPDATE_GOODS:
       return action.data
     case DELETE_GOODS:
-      return state
+      return action.data
     default:
       return state
   }

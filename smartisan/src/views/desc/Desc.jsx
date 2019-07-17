@@ -1,7 +1,9 @@
 import React from 'react'
 import BScroll from 'better-scroll'
-import { Carousel, WingBlank } from 'antd-mobile';
+import { Carousel, WingBlank,Toast } from 'antd-mobile';
+
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 
 import { addGoods ,updateGoods} from '../../redux/actions'
 import { data, serverDesc, recommend} from './DescData'
@@ -12,6 +14,7 @@ import Head from '../../components/head/Head'
 class Desc extends React.Component{
   state = {
     allData:{},
+    totalCount:0,
     listHeight:[],
     headBars: [
       {
@@ -35,10 +38,24 @@ class Desc extends React.Component{
     goodsIndex:0,
     sizeIndex:3,
     shopNum:1,
-    selectType:true
+    selectType:true,
+    shopCartNum:0
   }
+
   componentWillMount() {
+    let { total } = this.props
+    let { totalCount} = this.state
+    console.log(total,'4545454')
+
+    if (total[0]) {
+      for (let i = 0; i < total.length; i++) {
+        totalCount += total[i].num
+      }
+      this.setState({ totalCount })
+    }
+
     let id = this.props.location.state.id
+    // 循环找出匹配的id 的数据
     for(let i = 0; i < data.length; i++) {
       if(data[i].id === id) {
         this.setState({
@@ -46,6 +63,7 @@ class Desc extends React.Component{
         })
       }
     }
+
   }
   componentDidMount() {
     const content = document.querySelector('.wrapper');
@@ -116,16 +134,22 @@ class Desc extends React.Component{
   }
   // 点击之后添加进购物车
   confirm = () => {
-    const { allData, goodsIndex, sizeIndex, shopNum} = this.state
+    Toast.success('已经进入您的购物车了', 1);
+    const { allData, goodsIndex, sizeIndex, shopNum, totalCount} = this.state
     const { total } = this.props
-    this.setState({ selectType: true })
+    this.setState({
+      selectType: true,
+      totalCount: totalCount + shopNum
+    })
     const data = {
       id: allData.id,
       name: allData.name,
       size: allData.size[sizeIndex],
       num: shopNum,
+      price: allData.price,
       type: allData.color[goodsIndex].colorName,
-      img: allData.color[goodsIndex].goodsImg[0]
+      img: allData.color[goodsIndex].goodsImg[0],
+      select:false
     }
     // 判断此物品是否已经存在购物车内
     let result = { bool:false}
@@ -153,12 +177,6 @@ class Desc extends React.Component{
       // console.log('已存在', result.index)
     }
     console.log(total, 'total')
-
-
-
-
-
-
   }
   // 改变购买数量
   reduceShopNum = () => {
@@ -190,10 +208,16 @@ class Desc extends React.Component{
       goodsIndex: index
     })
   }
+  // 去购物车界面
+  goCart = () => {
+    if (this.state.totalCount > 0) {
+      this.props.history.push('./main/shop1')
+    }
+  }
   render () {
     // const { data } = this.props.location.state
-    console.log(this.state.shopNum,'44444444444')
-    const { allData, headBars, spanCurrent, goodsIndex, sizeIndex, shopNum, selectType} = this.state
+    // console.log(this.state.shopNum,'44444444444')
+    const { allData, headBars, spanCurrent, goodsIndex, sizeIndex, shopNum, selectType, totalCount} = this.state
     console.log(this.props)
     console.log('alldata',this.state.allData)
     console.log(this.props.total)
@@ -325,7 +349,8 @@ class Desc extends React.Component{
           </div>
         </div>
         <div className="footerBar">
-          <img src={require('../../image/desc/shop.png')} alt=""/>
+          <img onClick={this.goCart} src={require('../../image/desc/shop.png')} alt=""/>
+          <span className='goodsNum' style={{ display: `${totalCount?'':'none'}`}}>{totalCount}</span>
           <div className="DescfooterBar_btn" style={{ display: selectType ? "" : "none" }}>
             <button className='addShopCar' onClick={this.addShopCar}>加入购物车</button>
             <button className='Buy' onClick={this.goHome}>现在购买</button>
@@ -418,4 +443,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Desc)
+)(withRouter(Desc))
