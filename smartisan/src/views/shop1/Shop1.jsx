@@ -163,13 +163,22 @@ class Shop1 extends React.Component{
   // 修改当前的数量
   changeShopNum = (type,index) => {
     let { allGoods } = this.state
+    // let allGoods1 = allGoods.slice(0)
+    // allGoods[0].num = 5
+    // console.log('11111111', allGoods1)
+    // console.log('22222222', allGoods)
+    console.log(this.props.total)
+    let allGoods1 = allGoods.slice(0)
+
     if (type ==='reduce'){
-      if (allGoods[index].num <= 1) return
-      allGoods[index].num -= 1
+      if (allGoods1[index].num <= 1) return
+      allGoods1[index].num -= 1
     } else if (type === 'add') {
-      allGoods[index].num += 1
+      allGoods1[index].num += 1
     }
-    this.props.updateGoods(allGoods)
+    this.props.updateGoods(allGoods1)
+    console.log(allGoods1 === allGoods,'99999999999')
+
     // this.setState({ allGoods })
   }
 

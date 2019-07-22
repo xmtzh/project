@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+ const Sequelize = require('sequelize')
 const sequelize = require('../db')
 const { STRING, INTEGER, DATE, NOW } = Sequelize
 // 第一个参数为表名，后面为表的属性
